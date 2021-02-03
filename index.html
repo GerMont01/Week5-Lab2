@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script>
+            var meal = [
+                    {
+                        name: "Hamburger",
+                        price: 10,
+                        popularity: "High"
+                    },
+                    {
+                        name: "Pizza",
+                        price: 15,
+                        popularity: "Very High"
+                    },
+                    {
+                        name: "HotDog",
+                        price: 20,
+                        popularity: "Low"
+                    }
+            ];
+            function CreateTable(){
+                var names = new Array(meal.length);
+                var prices = new Array(meal.length);
+                var popularities = new Array(meal.length);
+
+                for (i = 0; i < meal.length; i++){
+                    names[i] = meal[i].name;
+                    prices[i] = meal[i].price;
+                    popularities[i] =meal[i].popularity;
+                }
+
+                var table = document.createElement('table');
+
+                for (i = -1; i < meal.length; i++){
+
+                    var tr = document.createElement('tr');   
+
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+
+                    if (i == -1){
+                        var mealname = document.createTextNode("Name");
+                        var price = document.createTextNode("Price");
+                        var popularity = document.createTextNode("Popularity");
+                        tr.setAttribute("class", "th");
+                    }
+                    else {
+                        var mealname = document.createTextNode(names[i]);
+                        var price = document.createTextNode(prices[i]);
+                        var popularity = document.createTextNode(popularities[i]);    
+                    }
+
+                    td1.appendChild(mealname);
+                    td2.appendChild(price);
+                    td3.appendChild(popularity);
+
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+
+                    table.appendChild(tr);    
+                }
+                document.body.appendChild(table); 
+
+                table.setAttribute("id", "table");
+
+                table.addEventListener('click', (elem) => {
+                elem.target.style.backgroundColor = "white"
+            })
+            }
+
+            function Push(){
+                var del = document.getElementById('table');
+                del.remove();
+                var newmeal = {
+                    name: document.getElementById("name").value,
+                    price: document.getElementById("price").value,
+                    popularity: document.getElementById("popularity").value
+                }
+                meal.push(newmeal);
+                CreateTable();
+                alert("Name: " + newmeal.name + ", " + "Price: " + newmeal.price + ", " + "Popularity: " + newmeal.popularity + ", Sucessfully added");
+            }
+            function Delete(del){
+                var del = document.getElementById('table');
+                del.remove(); 
+            }
+        </script>
+    </head>
+    <body>
+        <button type="button" onclick="CreateTable()"> Create Table </button>
+        <form>
+            Name <input type="text" name="name" id="name"><br>
+            Price <input type="number" name="price" id="price"><br>
+            Popularity <input type="text" name="popularity" id="popularity"><br>
+        </form>
+        <button type="button" onclick="Push()"> Push Data </button>
+        <button type="button" onclick="Delete()"> Delete Table </button>
+    </body>
+</html>
